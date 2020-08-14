@@ -41,7 +41,7 @@ class ComputeRigidTranslation(imfusion.Algorithm):
             spacing_z = shared_img.spacing[2]
 
         # get image transformation matrix. The function shared_img.matrix provide the transformation from world
-        # coordinate to image coordinate. Therefore to obtain the transfomation from data coordinate to world
+        # coordinate to image coordinate. Therefore to obtain the transformation from image coordinate to world
         # coordinate we need to take the inverse.
         Tdata2world = np.linalg.inv(shared_img.matrix)
         print(Tdata2world)
@@ -109,9 +109,19 @@ class ComputeRigidTranslation(imfusion.Algorithm):
         with open(self.json_path, 'w') as fp:
             json.dump(transform_dict, fp)
 
+    def align_mri2us_rf(self):
+        T_us = np.linalg.inv(self.us_label.matrix)
+        T_mri = np.linalg.inv(self.mri_label.matrix)
+        w_T_mri2us = np.matmul(T_us, np.linalg.inv(T_mri))
+
+        T_mri_new = np.matmul(w_T_mri2us, T_mri)
+        self.mri_label.matrix = np.linalg.inv(T_mri_new)
+
     def compute(self):
         # clear output of previous runs
         self.imageset_out.clear()
+
+        self.align_mri2us_rf()
 
         # get the ultrasound labelmap centroid in the world reference frame
         c_us = self.get_centroid(self.us_label)
@@ -120,7 +130,9 @@ class ComputeRigidTranslation(imfusion.Algorithm):
         c_mri = self.get_centroid(self.mri_label)
 
         # get the translation matrix to align the mri centroid on the us centroid
-        T_mri_alignment = self.compute_translation(c_mri=c_mri, c_us=c_us)
+        T_mri_translation = self.compute_translation(c_mri=c_mri, c_us=c_us)
+
+        T_mri_alignment = np.matmul(T_mri_translation, np.linalg.inv(self.mri_label.matrix))
 
         # update the json file where the alignment transformation is saved. This is the transformation to apply to the
         # MRI transformation matrix (data to world matrix) to align its sp centroid with the ultrasound one
