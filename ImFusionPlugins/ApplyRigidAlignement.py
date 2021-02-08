@@ -9,7 +9,7 @@ class ApplyRigidAlignment(imfusion.Algorithm):
         super().__init__()
         self.imageset = imageset
         self.imageset_out = imfusion.SharedImageSet()
-        self.json_path = "C:\\GitRepo\\VertebraRegistration\\transform.json"
+        self.json_path = "/ImFusionPlugins/transform.json"
 
     @classmethod
     def convert_input(cls, data):

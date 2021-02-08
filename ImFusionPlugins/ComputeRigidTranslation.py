@@ -11,7 +11,7 @@ class ComputeRigidTranslation(imfusion.Algorithm):
         self.us_label = us_label[0]
         self.imageset_out = imfusion.SharedImageSet()
 
-        self.json_path = "C:\\GitRepo\\VertebraRegistration\\transform.json"
+        self.json_path = "/ImFusionPlugins/transform.json"
 
     @classmethod
     def convert_input(cls, data):

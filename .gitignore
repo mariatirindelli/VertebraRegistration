@@ -6,3 +6,22 @@ venv
 .idea
 __pycache__
 >>>>>>> a956b83d069987dfeb586c29574c280da9bfc818
+demons/03_demons_registration.pdf
+demons/__MACOSX/._03_demons_registration.pdf
+demons/__MACOSX/demonsRegistration/._.DS_Store
+demons/__MACOSX/demonsRegistration/._computeColor.m
+demons/__MACOSX/demonsRegistration/._flowToColor.m
+demons/__MACOSX/demonsRegistration/._segment_images.mat
+demons/__MACOSX/demonsRegistration/._warping.m
+demons/demonsRegistration/.DS_Store
+demons/demonsRegistration/computeColor.m
+demons/demonsRegistration/flowToColor.m
+demons/demonsRegistration/I_source.mat
+demons/demonsRegistration/I_target.mat
+demons/demonsRegistration/image.png
+demons/demonsRegistration/segment_images.mat
+demons/demonsRegistration/simpleWarping.m
+demons/demonsRegistration/transformed_image.png
+demons/demonsRegistration/warping.m
+tmp.imf
+tmp.npy
